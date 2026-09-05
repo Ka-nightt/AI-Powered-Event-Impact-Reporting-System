@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
 
 const client = axios.create({ baseURL: API_BASE });
 
@@ -93,6 +92,12 @@ export const generateReport = (eventId) =>
   client.post(`/reports/${eventId}/generate`).then((r) => r.data);
 export const getReports = (eventId) =>
   client.get(`/reports/${eventId}`).then((r) => r.data);
+
+/**
+ * Downloads a report PDF through an authenticated request (the endpoint
+ * requires a Bearer token, so a plain <a href> link can't be used) and
+ * triggers a normal browser save via a temporary blob URL.
+ */
 export const downloadReportFile = async (
   id,
   filename = "event-impact-report.pdf",
