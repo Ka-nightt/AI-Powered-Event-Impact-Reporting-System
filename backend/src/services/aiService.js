@@ -1,4 +1,4 @@
-const ollama = require('../config/ollama');
+const aiProvider = require('../config/aiProvider');
 
 const SECTION_ORDER = [
   ['EXECUTIVE_SUMMARY', 'executiveSummary'],
@@ -61,7 +61,7 @@ RECOMMENDATIONS:
 CONCLUSION:
 <1-2 sentence closing statement>`;
 
-  const raw = await ollama.generate(prompt);
+  const raw = await aiProvider.generate(prompt);
   return parseSections(raw);
 }
 

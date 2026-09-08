@@ -1,7 +1,7 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://localhost:11434';
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3.1';
+const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://localhost:11434";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.2";
 
 /**
  * Sends a prompt to a locally running Ollama instance and returns the
@@ -19,13 +19,13 @@ async function generate(prompt, { temperature = 0.4 } = {}) {
         stream: false,
         options: { temperature },
       },
-      { timeout: 60000 }
+      { timeout: 300000 },
     );
-    return response.data.response?.trim() || '';
+    return response.data.response?.trim() || "";
   } catch (err) {
-    console.error('Ollama request failed:', err.message);
+    console.error("Ollama request failed:", err.message);
     throw new Error(
-      `Could not reach local AI model at ${OLLAMA_HOST}. Is 'ollama serve' running and is '${OLLAMA_MODEL}' pulled?`
+      `Could not reach local AI model at ${OLLAMA_HOST}. Is 'ollama serve' running and is '${OLLAMA_MODEL}' pulled?`,
     );
   }
 }
